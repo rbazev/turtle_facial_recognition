@@ -226,4 +226,4 @@ while start:
     if cont != 'y':
         start = False
 
-sys.exit(app.exec_())
+app.quit()
