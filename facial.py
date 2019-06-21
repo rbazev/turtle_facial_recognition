@@ -205,21 +205,25 @@ def get_graph():
     print(G.nodes())
     return G, image, img_location
 
-
+start = True
 app = QApplication(sys.argv)
-G, image, img_location = get_graph()
-date = '0'
-location = '0'
-species = '0'
-side = 'Right'
+while start:
+    G, image, img_location = get_graph()
+    date = '0'
+    location = '0'
+    species = '0'
+    side = 'Right'
 
-turtleID = img_location.split('/')[-2][:-7]+input('0, 1, or 2? ')
-ids = [i.split('.')[0] for i in os.listdir('./Database/')]
-a = new_sighting(turtleID, species, date, location, side, G, image)
-#Copy original image to image database with name ID_Date_Side
-#shutil.copy2(img_location, './Raw_Images/'+turtleID+'_'+date+'_'+side+'.'+ext)
-with open('Database/'+turtleID+'.pickle', 'wb') as handle:
-    pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    turtleID = img_location.split('/')[-2][:-7]+input('0, 1, or 2? ')
+    ids = [i.split('.')[0] for i in os.listdir('./Database/')]
+    a = new_sighting(turtleID, species, date, location, side, G, image)
+    #Copy original image to image database with name ID_Date_Side
+    #shutil.copy2(img_location, './Raw_Images/'+turtleID+'_'+date+'_'+side+'.'+ext)
+    with open('Database/'+turtleID+'.pickle', 'wb') as handle:
+        pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-G, img = get_graph()
+    cont = input('Another One? (y/n) ')
+    if cont != 'y':
+        start = False
+
 sys.exit(app.exec_())
