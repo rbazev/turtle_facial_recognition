@@ -16,8 +16,10 @@ import numpy as np
 import networkx as nx
 import pickle
 import matplotlib.pyplot as plt
+from PyQt4.QtGui import QApplication
 from PyQt4.QtGui import QFileDialog
 import os
+import sys
 
 
 def select_k(spectrum, minimum_energy = 0.9):
@@ -203,6 +205,8 @@ def get_graph():
     print(G.nodes())
     return G, image, img_location
 
+
+app = QApplication(sys.argv)
 G, image, img_location = get_graph()
 date = '0'
 location = '0'
@@ -218,3 +222,4 @@ with open('Database/'+turtleID+'.pickle', 'wb') as handle:
     pickle.dump(a, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 G, img = get_graph()
+sys.exit(app.exec_())
